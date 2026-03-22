@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-title">Model <span>Metrics</span></div>
+<p class="page-subtitle">Performance evaluation of the Ridge Regression model on the Algerian Forest Fire dataset.</p>
+
+<div class="card">
+  <h2>{{ metrics.model }}</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="val">{{ metrics.r2_score }}</div>
+      <div class="lbl">R2 Score</div>
+    </div>
+    <div class="metric-card">
+      <div class="val">{{ metrics.mae }}</div>
+      <div class="lbl">MAE</div>
+    </div>
+    <div class="metric-card">
+      <div class="val">{{ metrics.mse }}</div>
+      <div class="lbl">MSE</div>
+    </div>
+    <div class="metric-card">
+      <div class="val">{{ metrics.rmse }}</div>
+      <div class="lbl">RMSE</div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>How to update these values</h2>
+  <p style="opacity:.7; font-size:.9rem; line-height:1.8;">
+    Open <code style="color:var(--ember)">app.py</code> and find the
+    <code style="color:var(--ember)">/metrics</code> route. Replace the placeholder
+    numbers in <code style="color:var(--ember)">metrics_data</code> with the actual
+    scores you computed inside <code style="color:var(--ember)">model_trainer.ipynb</code>.
+  </p>
+</div>
+
+{% endblock %}

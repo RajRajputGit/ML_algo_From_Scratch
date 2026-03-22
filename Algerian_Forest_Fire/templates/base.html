@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Algerian Forest Fire Predictor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --fire:  #FF4500;
+      --ember: #FF8C00;
+      --ash:   #1a1a1a;
+      --smoke: #2d2d2d;
+      --fog:   #3d3d3d;
+      --white: #f5f0eb;
+      --safe:  #00c896;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:var(--ash); color:var(--white); font-family:'DM Sans',sans-serif; min-height:100vh; }
+
+    nav {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:1.2rem 3rem; background:var(--smoke);
+      border-bottom:2px solid var(--fire); position:sticky; top:0; z-index:100;
+    }
+    .nav-brand { font-family:'Syne',sans-serif; font-weight:800; font-size:1.3rem; color:var(--fire); }
+    .nav-links { display:flex; gap:2rem; }
+    .nav-links a {
+      color:var(--white); text-decoration:none; font-size:.9rem;
+      font-weight:500; opacity:.7; transition:opacity .2s, color .2s;
+    }
+    .nav-links a:hover, .nav-links a.active { opacity:1; color:var(--ember); }
+
+    main { padding:3rem; max-width:1100px; margin:0 auto; }
+
+    .page-title { font-family:'Syne',sans-serif; font-weight:800; font-size:2.4rem; margin-bottom:.4rem; }
+    .page-title span { color:var(--fire); }
+    .page-subtitle { opacity:.6; font-size:.95rem; margin-bottom:2.5rem; }
+
+    .card { background:var(--smoke); border:1px solid var(--fog); border-radius:12px; padding:2rem; margin-bottom:1.5rem; }
+    .card h2 { font-family:'Syne',sans-serif; font-size:1.15rem; margin-bottom:1.2rem; color:var(--ember); }
+
+    .form-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:1.2rem; }
+    .form-group label { display:block; font-size:.78rem; letter-spacing:1px; text-transform:uppercase; opacity:.65; margin-bottom:.4rem; }
+    .form-group input {
+      width:100%; background:var(--fog); border:1px solid #555; border-radius:8px;
+      padding:.65rem 1rem; color:var(--white); font-size:.95rem; outline:none; transition:border-color .2s;
+    }
+    .form-group input:focus { border-color:var(--fire); }
+
+    .btn-predict {
+      margin-top:1.5rem; background:var(--fire); color:#fff; border:none;
+      padding:.85rem 2.5rem; border-radius:8px; font-family:'Syne',sans-serif;
+      font-weight:700; font-size:1rem; cursor:pointer; transition:background .2s, transform .1s;
+    }
+    .btn-predict:hover { background:var(--ember); transform:translateY(-1px); }
+
+    .result-banner {
+      padding:1.2rem 1.8rem; border-radius:10px; font-family:'Syne',sans-serif;
+      font-size:1.15rem; font-weight:600; margin-bottom:1.5rem; border-left:5px solid;
+    }
+    .result-banner.fire { background:rgba(255,69,0,.15); border-color:var(--fire); color:#ff7043; }
+    .result-banner.safe { background:rgba(0,200,150,.12); border-color:var(--safe); color:var(--safe); }
+
+    .stats-table { width:100%; border-collapse:collapse; font-size:.85rem; }
+    .stats-table th, .stats-table td { padding:.6rem 1rem; text-align:right; border-bottom:1px solid var(--fog); }
+    .stats-table th { color:var(--ember); text-align:left; font-family:'Syne',sans-serif; }
+    .stats-table td:first-child { text-align:left; opacity:.7; }
+
+    .metric-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(180px,1fr)); gap:1rem; }
+    .metric-card { background:var(--fog); border-radius:10px; padding:1.5rem; text-align:center; }
+    .metric-card .val { font-family:'Syne',sans-serif; font-size:2rem; font-weight:800; color:var(--ember); }
+    .metric-card .lbl { font-size:.78rem; text-transform:uppercase; letter-spacing:1px; opacity:.6; margin-top:.3rem; }
+
+    footer { text-align:center; padding:2rem; opacity:.35; font-size:.8rem; }
+  </style>
+</head>
+<body>
+  <nav>
+    <span class="nav-brand">🔥 AlgerianFF</span>
+    <div class="nav-links">
+      <a href="/"        {% if request.path == '/'       %}class="active"{% endif %}>Predict</a>
+      <a href="/metrics" {% if request.path == '/metrics' %}class="active"{% endif %}>Metrics</a>
+      <a href="/eda"     {% if request.path == '/eda'     %}class="active"{% endif %}>EDA</a>
+    </div>
+  </nav>
+  <main>{% block content %}{% endblock %}</main>
+  <footer>Algerian Forest Fire · Ridge Regression · Built with Flask</footer>
+</body>
+</html>

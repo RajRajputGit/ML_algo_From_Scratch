@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-title">Exploratory <span>Data Analysis</span></div>
+<p class="page-subtitle">Summary statistics and class distribution from the processed Algerian Forest Fire dataset.</p>
+
+<div class="card">
+  <h2>Class Distribution</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="val" style="color:var(--safe)">{{ fire_counts.get(0, 0) }}</div>
+      <div class="lbl">No Fire (Class 0)</div>
+    </div>
+    <div class="metric-card">
+      <div class="val" style="color:var(--fire)">{{ fire_counts.get(1, 0) }}</div>
+      <div class="lbl">Fire (Class 1)</div>
+    </div>
+    <div class="metric-card">
+      <div class="val">{{ fire_counts.get(0, 0) + fire_counts.get(1, 0) }}</div>
+      <div class="lbl">Total Samples</div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Descriptive Statistics</h2>
+  <div style="overflow-x:auto;">
+    {{ stats | safe }}
+  </div>
+</div>
+
+{% endblock %}

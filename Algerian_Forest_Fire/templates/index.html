@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-title">Forest Fire <span>Predictor</span></div>
+<p class="page-subtitle">Enter the 10 fire-weather indices to predict Fire Weather Index and fire risk.</p>
+
+{% if prediction_text %}
+  <div class="result-banner {% if fire %}fire{% else %}safe{% endif %}">
+    {{ prediction_text }}
+  </div>
+{% endif %}
+
+<div class="card">
+  <h2>Input Features</h2>
+  <form action="/predict" method="POST">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Temperature (C)</label>
+        <input type="number" step="any" name="Temperature" value="{{ input_values.Temperature if input_values else '' }}" placeholder="e.g. 29" required>
+      </div>
+      <div class="form-group">
+        <label>RH - Relative Humidity (%)</label>
+        <input type="number" step="any" name="RH" value="{{ input_values.RH if input_values else '' }}" placeholder="e.g. 57" required>
+      </div>
+      <div class="form-group">
+        <label>Ws - Wind Speed (km/h)</label>
+        <input type="number" step="any" name="Ws" value="{{ input_values.Ws if input_values else '' }}" placeholder="e.g. 18" required>
+      </div>
+      <div class="form-group">
+        <label>Rain (mm)</label>
+        <input type="number" step="any" name="Rain" value="{{ input_values.Rain if input_values else '' }}" placeholder="e.g. 0.0" required>
+      </div>
+      <div class="form-group">
+        <label>FFMC</label>
+        <input type="number" step="any" name="FFMC" value="{{ input_values.FFMC if input_values else '' }}" placeholder="e.g. 65.7" required>
+      </div>
+      <div class="form-group">
+        <label>DMC</label>
+        <input type="number" step="any" name="DMC" value="{{ input_values.DMC if input_values else '' }}" placeholder="e.g. 3.4" required>
+      </div>
+      <div class="form-group">
+        <label>DC</label>
+        <input type="number" step="any" name="DC" value="{{ input_values.DC if input_values else '' }}" placeholder="e.g. 7.6" required>
+      </div>
+      <div class="form-group">
+        <label>ISI</label>
+        <input type="number" step="any" name="ISI" value="{{ input_values.ISI if input_values else '' }}" placeholder="e.g. 1.3" required>
+      </div>
+      <div class="form-group">
+        <label>BUI</label>
+        <input type="number" step="any" name="BUI" value="{{ input_values.BUI if input_values else '' }}" placeholder="e.g. 3.4" required>
+      </div>
+    </div>
+    <button class="btn-predict" type="submit">Predict Fire Risk</button>
+  </form>
+</div>
+
+<div class="card">
+  <h2>Feature Reference</h2>
+  <table class="stats-table">
+    <thead><tr><th>Feature</th><th>Full Name</th><th>Typical Range</th></tr></thead>
+    <tbody>
+      <tr><td>FFMC</td><td>Fine Fuel Moisture Code</td><td>18.7 - 96.2</td></tr>
+      <tr><td>DMC</td><td>Duff Moisture Code</td><td>1.1 - 291.3</td></tr>
+      <tr><td>DC</td><td>Drought Code</td><td>7.9 - 860.6</td></tr>
+      <tr><td>ISI</td><td>Initial Spread Index</td><td>0 - 56.1</td></tr>
+      <tr><td>BUI</td><td>Buildup Index</td><td>1.1 - 68.6</td></tr>
+      <tr><td>FWI</td><td>Fire Weather Index</td><td>0 - 31.1</td></tr>
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}
